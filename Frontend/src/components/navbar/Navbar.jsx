@@ -1,8 +1,13 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "../../assets/notepad-logo-transparent.svg";
+import Profileinfo from "../UserProfileInfo/Profileinfo";
 
 const Navbar = () => {
+  const navigate = useNavigate()
+    const onLogout = () =>{
+          navigate("/");
+    }
   return (
     <nav
       className="flex h-15 items-center justify-between px-1 py-3 border-b border-[#EDEDF3] relative z-10"
@@ -17,9 +22,13 @@ const Navbar = () => {
         <img
           src={logo}
           alt="Notes App Logo"
-          className="w-15 md:w-16"
+          className="w-15 md:w-13"
         />
       </Link>
+
+      
+      
+ <Profileinfo onLogout={onLogout} />
     </nav>
   );
 };
