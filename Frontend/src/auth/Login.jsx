@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import PasswordInput from "../components/input/PasswordInput";
 import { validateEmail } from "../utils/helper";
 import Navbar from "../components/navbar/Navbar";
-import logo from "./../assets/notepad-logo-transparent.svg";
+import logo from ".././assets/notes-logo-cool.svg";
 import { FcGoogle } from "react-icons/fc";
  
 const Login = () => {
@@ -65,6 +65,7 @@ const Login = () => {
               Not register yet?{" "}
               <Link
                 to="/signup"
+                
                 className="text-blue-600 font-medium "
               >
                 Creat new account

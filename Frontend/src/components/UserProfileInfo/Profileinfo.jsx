@@ -4,7 +4,7 @@ import { LogOut, ChevronDown } from 'lucide-react'
 
 const Profileinfo = ({ onLogout }) => {
   const [open, setOpen] = useState(false)
-  const ref = useRef(null)
+  const ref = useRef(null);
 
   useEffect(() => {
     const handleClickOutside = (e) => {
@@ -15,13 +15,13 @@ const Profileinfo = ({ onLogout }) => {
   }, [])
 
   return (
-    <div className='relative mr-2' ref={ref}>
+    <div className='relative  -mr-2' ref={ref}>
       <button
         onClick={() => setOpen(!open)}
         className='flex items-center gap-2.5 pl-1.5 pr-2.5 py-1.5 rounded-xl hover:bg-gray-100 transition-colors duration-150 group'
       >
         <div className='relative'>
-          <div className='w-9 h-9 flex items-center justify-center rounded-full bg-gradient-to-br from-violet-500 to-indigo-600 text-white font-semibold text-sm ring-2 ring-white shadow-sm'>
+          <div className='w-9 h-9 flex items-center justify-center rounded-full bg-linear-to-br from-violet-500 to-indigo-600 text-white font-semibold text-sm ring-2 ring-white shadow-sm'>
             {getInitials("Admin Tester")}
           </div>
           <span className='absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 bg-emerald-500 rounded-full ring-2 ring-white' />

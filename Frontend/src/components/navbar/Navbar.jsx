@@ -1,9 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import logo from "../../assets/notepad-logo-transparent.svg";
+import logo from "../../assets/notes-logo-cool.svg";
 import Profileinfo from "../UserProfileInfo/Profileinfo";
+import SearchBar from "../saerchBar/SearchBar";
 
 const Navbar = () => {
+  const [searchQuery,setSearchQueary] = useState("");   // searcbar value
+  const onChange = (e)=>{    // search bar logic
+    setSearchQueary(e.target.value);
+  }
+
+  const handleSearch = (e)=>{
+         
+  }
+ 
+  const onClearSearch = () =>{
+     setSearchQueary("");
+  }
+
   const navigate = useNavigate()
     const onLogout = () =>{
           navigate("/");
@@ -27,7 +41,7 @@ const Navbar = () => {
       </Link>
 
       
-      
+       <SearchBar value={searchQuery}  onChange={onChange}  onClearSearch={onClearSearch}   />
  <Profileinfo onLogout={onLogout} />
     </nav>
   );

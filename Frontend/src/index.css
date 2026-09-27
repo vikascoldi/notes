@@ -28,4 +28,8 @@
   .btn-primary {
     @apply w-full bg-blue-500 text-lg text-white rounded my-1 py-2 hover:bg-blue-600;
   }
+
+  .icon-btn{
+    @apply text-xl text-slate-300 cursor-pointer hover:text-blue-400
+  }
 }
