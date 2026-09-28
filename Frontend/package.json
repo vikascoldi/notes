@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "push": "git add . && git commit -m \"auto update\" && git push",
     "build": "vite build",
     "lint": "oxlint",
     "preview": "vite preview"

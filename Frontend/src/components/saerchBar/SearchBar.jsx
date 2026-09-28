@@ -8,7 +8,7 @@ const SearchBar = ({
   onClearSearch,
 }) => {
   return (
-    <div className="flex items-center w-60 md:w-80 ml-2 px-3 rounded-lg bg-slate-100 border border-transparent focus-within:border-gray-200 focus-within:bg-white transition-colors duration-200">
+    <div className="flex items-center w-50 md:w-80 ml-2 px-3 rounded-lg bg-slate-100 border border-transparent focus-within:border-gray-200 focus-within:bg-white transition-colors duration-200">
       
       <input
         type="text"
@@ -17,7 +17,7 @@ const SearchBar = ({
         onChange={onChange}
         className="w-full bg-transparent py-2 text-[20px] text-slate-700 placeholder:text-sm placeholder:text-slate-400 outline-none"
       />
-
+         
       {value && (
         <button
           type="button"
