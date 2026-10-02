@@ -20,7 +20,7 @@ const AddEditNotes = () => {
           rows={10}
         />
       </div>
-      <div>
+      <div className="mt-5">
         <label htmlFor="" className="input-label">TAG</label>
       </div>
       <button className="btn-primary mt-5 p-3 font-medium" onClick={()=>{}} >Add</button>
