@@ -83,7 +83,9 @@ const Home = () => {
         }}
         className="mx-4 mt-16 max-h-[85vh] overflow-y-auto rounded-2xl bg-white p-6 shadow-2xl outline-none md:mx-auto md:w-[40%] md:p-7"
       >
-        <AddEditNotes type={openAddEditModal.type} />
+        <AddEditNotes type={openAddEditModal.type}  onClose={()=>{
+          setOpenAddEditModal({isShown:false,type:"add",data:null})
+        }}  />
       </Modal>
     </>
   );
