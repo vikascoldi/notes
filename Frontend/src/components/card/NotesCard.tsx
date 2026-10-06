@@ -6,11 +6,10 @@ interface NotesCardProps {
   date: string;
   content: string;
   tag: string;
-  isPinned:boolean; 
+  isPinned: boolean;
   onEdit: () => void;
   onDelete: () => void;
   onPinNotes: () => void;
-  
 }
 
 const NotesCard = ({
@@ -24,48 +23,64 @@ const NotesCard = ({
   onPinNotes,
 }: NotesCardProps) => {
   return (
-    <div className="bg-white mt-4 rounded border border-gray-200 p-4 hover:shadow-xl transition-all">
-
-      <div className="flex items-center justify-between">
-        <div>
-          <h6 className="text-sm font-medium">{title}</h6>
-
-          <span className="text-xs text-slate-700">
-            {date}
-          </span>
+    <div
+      className={`group mt-4 rounded-2xl border bg-white p-5 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-slate-200/70 ${
+        isPinned ? "border-blue-200 ring-1 ring-blue-100" : "border-slate-200"
+      }`}
+    >
+      <div className="flex items-start justify-between gap-3">
+        <div className="min-w-0">
+          <h6 className="truncate text-base font-semibold text-slate-800">
+            {title}
+          </h6>
+          <span className="text-xs text-slate-500">{date}</span>
         </div>
 
-        <MdOutlinePushPin
-          size={22}
+        <button
+          type="button"
           onClick={onPinNotes}
-          className={`icon-btn ${
-            isPinned ? "text-blue-400" : "text-gray-300"
+          aria-label={isPinned ? "Unpin note" : "Pin note"}
+          aria-pressed={isPinned}
+          className={`icon-btn shrink-0 ${
+            isPinned ? "!text-blue-500 bg-blue-50" : ""
           }`}
-        />
+        >
+          <MdOutlinePushPin size={20} />
+        </button>
       </div>
 
-      <p className="text-xs text-slate-600">
+      <p className="mt-3 text-sm leading-relaxed text-slate-600">
         {content.slice(0, 60)}
+        {content.length > 60 && "…"}
       </p>
 
-      <div className="flex items-center justify-between mt-2">
+      <div className="mt-4 flex items-center justify-between">
+        {tag ? (
+          <span className="rounded-full bg-slate-100 px-2.5 py-1 text-xs font-medium text-slate-600">
+            {tag}
+          </span>
+        ) : (
+          <span />
+        )}
 
-        <div className="text-xs text-slate-500">
-          {tag}
-        </div>
-
-        <div className="flex gap-2 items-center">
-
-          <MdCreate
-            className="icon-btn hover:text-green-600"
+        <div className="flex items-center gap-1 transition-opacity md:opacity-0 md:group-hover:opacity-100 md:group-focus-within:opacity-100">
+          <button
+            type="button"
             onClick={onEdit}
-          />
+            aria-label="Edit note"
+            className="icon-btn hover:!bg-green-50 hover:!text-green-600"
+          >
+            <MdCreate size={20} />
+          </button>
 
-          <MdDelete
-            className="icon-btn hover:text-red-600"
+          <button
+            type="button"
             onClick={onDelete}
-          />
-
+            aria-label="Delete note"
+            className="icon-btn hover:!bg-red-50 hover:!text-red-600"
+          >
+            <MdDelete size={20} />
+          </button>
         </div>
       </div>
     </div>

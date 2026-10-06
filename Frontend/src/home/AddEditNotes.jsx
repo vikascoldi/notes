@@ -1,38 +1,89 @@
 import React, { useState } from "react";
 import Taginput from "../components/input/Taginput";
 
-const AddEditNotes = () => {
-  const [title,setTitle]= useState("");
-  const [content,setContent] = useState("");
-  const [tags,setTags] = useState([]);
+const AddEditNotes = ({ type = "add" }) => {
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
+  const [tags, setTags] = useState([]);
+
+  const [error, setError] = useState("");
+
+  const addNewNote = async () => {};
+
+  const editNote = async () => {};
+
+  const handleAddNote = () => {
+    if (!title) {
+      setError("Please provide title*");
+      return;
+    }
+    if (!content) {
+      setError("Please provide content*");
+      return;
+    }
+    setError("");
+    if (type === "edit") {
+      editNote();
+    } else {
+      addNewNote();
+    }
+  };
+
   return (
-    <div>
-      <div className="flex  flex-col gap-2">
-        <label className="input-label" htmlFor="TITLE">TITLE</label>
+    <div className="flex flex-col gap-5">
+      <div className="flex flex-col">
+        <label className="input-label" htmlFor="note-title">
+          Title
+        </label>
         <input
+          id="note-title"
           type="text"
-          className="outline-none text-2xl text-slate-950"
-          placeholder="Go to Gym at  5am"
+          className="input-box !mb-0 text-xl font-medium"
+          placeholder="Go to Gym at 5am"
           value={title}
-          onChange={({target})=>setTitle(target.value)}
+          onChange={({ target }) => setTitle(target.value)}
         />
       </div>
-      <div className="flex flex-col gap-2 ">
-        <label htmlFor="">CONTENT</label>{" "}
+
+      <div className="flex flex-col">
+        <label className="input-label" htmlFor="note-content">
+          Content
+        </label>
         <textarea
-          type="text"
+          id="note-content"
           placeholder="Content..."
-          className="text-sm border border-gray-400 text-slat-950 outline-none p-2 bg-blue-50 rounded"
+          className="input-box !mb-0 resize-y text-sm leading-relaxed"
           rows={10}
           value={content}
-          onChange={({target})=>setContent(target.value)}
+          onChange={({ target }) => setContent(target.value)}
         />
       </div>
-      <div className="mt-5">
-        <label htmlFor="" className="input-label">TAG</label>
-        <Taginput  tags={tags} setTags={setTags} />
+
+      <div>
+        <label className="input-label" htmlFor="note-tags">
+          Tags
+        </label>
+        <Taginput tags={tags} setTags={setTags} />
       </div>
-      <button className="btn-primary mt-5 p-3 font-medium" onClick={()=>{}} >Add</button>
+
+      {error && (
+        <p
+          role="alert"
+          className="rounded-lg bg-red-50 px-3 py-2 text-sm text-red-600"
+        >
+          {error}
+        </p>
+      )}
+
+      <button
+        type="button"
+        className="btn-primary font-medium"
+        onClick={() => {
+          handleAddNote();
+        }}
+      >
+        Add
+      </button>
     </div>
   );
 };

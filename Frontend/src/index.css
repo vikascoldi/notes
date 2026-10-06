@@ -1,22 +1,54 @@
-/* @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap'); */
- 
-/* @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Kalam:wght@300;400;700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap'); */
-/* @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Kalam:wght@300;400;700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto+Slab:wght@100..900&display=swap'); */
-@import url('https://fonts.googleapis.com/css2?family=Isometra&family=Space+Grotesk:wght@300..700&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Kalam:wght@300;400;700&family=Space+Grotesk:wght@300..700&display=swap');
 
 @import "tailwindcss";
 
+@theme {
+  --font-sans: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --color-brand-50: #eff5ff;
+  --color-brand-500: #3b6cf6;
+  --color-brand-600: #2c56d9;
+  --color-brand-700: #2446b3;
+}
 
 @layer base {
   html {
-    font-family: "Grotesk" serif;
-    
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    scroll-behavior: smooth;
   }
 
   body {
-    background-color: #fdfeff;
+    background-color: #f7f9fc;
+    color: #1e293b;
+    line-height: 1.6;
     overflow-x: hidden;
+  }
+
+  h1, h2, h3 {
+    letter-spacing: -0.02em;
+    line-height: 1.25;
+  }
+
+  ::selection {
+    background: #cddcff;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-brand-500);
+    outline-offset: 2px;
+  }
+
+  button, a, input, textarea, select {
+    transition: color .15s ease, background-color .15s ease, border-color .15s ease,
+      box-shadow .15s ease, transform .15s ease;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      transition: none !important;
+      animation: none !important;
+      scroll-behavior: auto !important;
+    }
   }
 }
 
@@ -28,18 +60,42 @@
 
 @layer components {
   .input-box {
-    @apply w-full text-lg  bg-transparent border-b  border-gray-400 px-3 py-3 rounded mb-4 outline-none;
+    @apply w-full text-base text-slate-800 bg-white border border-slate-200 rounded-xl px-4 py-3 mb-4 outline-none placeholder:text-slate-400;
+  }
+  .input-box:hover {
+    @apply border-slate-300;
+  }
+  .input-box:focus {
+    border-color: var(--color-brand-500);
+    box-shadow: 0 0 0 4px rgb(59 108 246 / 0.15);
   }
 
   .btn-primary {
-    @apply w-full bg-blue-500 text-lg text-white rounded my-1 py-2 hover:bg-blue-600;
+    @apply w-full text-base font-medium text-white rounded-xl my-1 py-3 px-4 cursor-pointer;
+    background-color: var(--color-brand-500);
+    box-shadow: 0 1px 2px rgb(36 70 179 / 0.25), 0 6px 16px -6px rgb(59 108 246 / 0.5);
+  }
+  .btn-primary:hover {
+    background-color: var(--color-brand-600);
+  }
+  .btn-primary:active {
+    background-color: var(--color-brand-700);
+    transform: scale(0.98);
+  }
+  .btn-primary:disabled {
+    @apply opacity-50 cursor-not-allowed shadow-none;
+    transform: none;
   }
 
-  .icon-btn{
-    @apply text-xl text-slate-300 cursor-pointer hover:text-blue-400
+  .icon-btn {
+    @apply inline-flex items-center justify-center text-xl text-slate-400 cursor-pointer rounded-lg p-1.5;
+  }
+  .icon-btn:hover {
+    color: var(--color-brand-500);
+    background-color: var(--color-brand-50);
   }
 
-  .input-label{
-    @apply text-xs text-slate-400;
+  .input-label {
+    @apply block text-sm font-medium text-slate-500 mb-1.5;
   }
 }
