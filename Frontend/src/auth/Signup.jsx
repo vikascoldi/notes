@@ -6,7 +6,6 @@ import { Link } from "react-router-dom";
 import logo from "../assets/notes-logo-cool.svg";
 import { FcGoogle } from "react-icons/fc";
 
-
 const Signup = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -14,7 +13,7 @@ const Signup = () => {
   const [error, setError] = useState(null);
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if(!name){
+    if (!name) {
       setError("Please enter name");
       return;
     }
@@ -22,7 +21,7 @@ const Signup = () => {
       setError("Please enter valid email");
       return;
     }
-    if(!password){
+    if (!password) {
       setError("Please enter valid password");
       return;
     }
@@ -32,77 +31,96 @@ const Signup = () => {
     <>
       <Navbar />
       <div
-        className="min-h-[calc(100vh-4rem)] flex items-center  justify-center px-4  "
+        className="flex min-h-[calc(100vh-5rem)] items-center justify-center px-4 py-8"
         style={{
-          backgroundColor: "#FBFBFD",
           backgroundImage:
-            "radial-gradient(ellipse 900px 500px at 50% 0%, rgba(109,94,245,0.14), transparent 60%), radial-gradient(#e6e6ee 1px, transparent 1px)",
-          backgroundSize: "auto, 24px 24px",
+            "radial-gradient(ellipse 900px 500px at 50% 0%, rgba(59,108,246,0.12), transparent 60%)",
         }}
       >
-        <div className="  w-full max-w-md rounded px-7   bg-transparent">
+        <div className="w-full max-w-md rounded-2xl border border-slate-200 bg-white p-7 shadow-xl shadow-slate-200/60 md:p-9">
           <form onSubmit={handleSubmit}>
             <img
               src={logo}
               alt="Notes App Logo"
-              className="w-15 mx-auto mb-2"
+              className="mx-auto mb-3 w-14"
             />
 
-            <h4 className="mb-4 font-medium text-3xl text-center">
+            <h4 className="mb-6 text-center text-2xl font-semibold text-slate-900">
               Create Your Account
             </h4>
 
             <input
               type="text"
               placeholder="Enter your name"
+              aria-label="Name"
+              autoComplete="name"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className="w-full border-b border-gray-300 px-2 py-3 text-lg outline-none rounded mb-3"
+              className="input-box"
             />
-            
-            <input
-              type="email"
-              placeholder="Enter your email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="w-full border-b text-lg  border-gray-300 px-2 py-3 outline-none rounded mb-3"
+
+            <div className="mb-4 flex items-start gap-2">
+              <input
+                type="email"
+                placeholder="Enter your email"
+                aria-label="Email"
+                autoComplete="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="input-box !mb-0 min-w-0 flex-1"
               />
-               <button className="bg-green-600 cursor-pointer px-6 py-1 rounded text-white ">Verify Email</button>
-               
-          
+              <button
+                type="button"
+                className="shrink-0 cursor-pointer rounded-xl bg-emerald-600 px-4 py-3 text-sm font-medium text-white hover:bg-emerald-700 active:scale-95"
+              >
+                Verify Email
+              </button>
+            </div>
 
             <PasswordInput
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
 
-            {error && <p className="text-red-500 mb-1">{error}</p>}
+            {error && (
+              <p
+                role="alert"
+                className="mb-3 rounded-lg bg-red-50 px-3 py-2 text-sm text-red-600"
+              >
+                {error}
+              </p>
+            )}
 
-            <button
-              type="submit"
-              className=" text-2xl bg-blue-500 w-full text-white px-3 py-2 rounded cursor-pointer"
-            >
+            <button type="submit" className="btn-primary mt-1 font-medium">
               Sign Up
             </button>
 
-            <p className="mt-2 text-center">
+            <p className="mt-4 text-center text-sm text-slate-600">
               Already have an account?{" "}
-              <Link to="/login" className="text-blue-500 font-medium">
-                Click here
+              <Link
+                to="/login"
+                className="font-medium text-blue-600 hover:text-blue-700 hover:underline"
+              >
+                Log in
               </Link>
             </p>
           </form>
-          <div className="flex items-center gap-3 my-4">
-            <div className="flex-1  h-px bg-gray-300" />
+
+          <div className="my-5 flex items-center gap-3 text-sm text-slate-400">
+            <div className="h-px flex-1 bg-slate-200" />
             <span>or</span>
-            <div className="flex-1 h-px bg-gray-300" />
+            <div className="h-px flex-1 bg-slate-200" />
           </div>
-          <div className=" flex items-center justify-center">
-            <button className=" w-full flex max-w-sm  items-center justify-center px-4 gap-1 transition hover:bg-gray-50   py-2 border border-gray-300 rounded ">
-               <FcGoogle size={22} />
-               <span className="text-sm text-gray-700 font-medium  cursor-pointer ">Continue With Google</span>
-            </button>
-          </div>
+
+          <button
+            type="button"
+            className="flex w-full cursor-pointer items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-2.5 hover:bg-slate-50 active:scale-[0.99]"
+          >
+            <FcGoogle size={22} />
+            <span className="text-sm font-medium text-slate-700">
+              Continue With Google
+            </span>
+          </button>
         </div>
       </div>
     </>
