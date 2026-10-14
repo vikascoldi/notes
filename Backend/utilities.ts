@@ -1,4 +1,4 @@
-import jwt, { type JwtPayload } from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 import type { Request, Response, NextFunction } from "express";
 
 const authenticateToken = (
@@ -6,27 +6,51 @@ const authenticateToken = (
   res: Response,
   next: NextFunction,
 ): void => {
-  const authHeader = req.headers["authorization"];
-  const token = authHeader && authHeader.split(" ")[1];
+  try {
+    const authHeader = req.headers.authorization;
+    const token = authHeader?.split(" ")[1];
 
-  if (!token) {
-    res.sendStatus(401);
-    return;
+    if (!token) {
+      res.status(401).json({
+        success: false,
+        message: "Token is missing",
+      });
+      return;
+    }
+
+    const secretKey = process.env.ACCESS_TOKEN;
+
+    if (!secretKey) {
+      res.status(500).json({
+        success: false,
+        message: "JWT secret is not configured",
+      });
+      return;
+    }
+
+    const decoded = jwt.verify(token, secretKey);
+
+    if (typeof decoded === "string") {
+      res.status(401).json({
+        success: false,
+        message: "Invalid token payload",
+      });
+      return;
+    }
+
+    // DEBUG: Check decoded token
+    console.log("Decoded JWT:", decoded);
+
+    req.user = decoded;
+    next();
+  } catch (error) {
+    console.error("JWT verification failed:", error);
+
+    res.status(401).json({
+      success: false,
+      message: "Invalid or expired token",
+    });
   }
-
-  jwt.verify(
-    token,
-    process.env.ACCESS_TOKEN as string,
-    (err: jwt.VerifyErrors | null, user: string | JwtPayload | undefined) => {
-      if (err || !user) {
-        res.sendStatus(403);
-        return;
-      }
-
-      req.user = user;
-      next();
-    },
-  );
 };
 
 export default authenticateToken;
