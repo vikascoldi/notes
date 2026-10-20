@@ -136,7 +136,7 @@ export const loginUser = async (req: Request, res: Response): Promise<void> => {
         fullName: user.fullName,
         email: user.email,
       },
-      accessToken,
+      AccessToken:accessToken,
     });
   } catch (error: unknown) {
     console.error("Login error:", error);
@@ -148,3 +148,40 @@ export const loginUser = async (req: Request, res: Response): Promise<void> => {
     });
   }
 };
+
+
+export const getByIdUser = async (req:Request,res:Response) =>{
+  try {
+    const userId = req.params.id; 
+
+    const user = await User.findById(userId).select("-password")
+
+    if(!user) {
+      res.status(404).json({
+        message:"User not found", 
+      });
+      return;
+    }
+
+    res.status(200).json({
+      message:"User fetch successfully",
+      user
+    })
+
+
+
+  } catch (error) {
+    console.error("Error",error);
+     
+      res.status(500).json({
+        message:"Internal server error",
+        error: error instanceof Error ? error.message : "Unknown error",
+         
+      })
+    
+  };
+}
+
+
+
+
