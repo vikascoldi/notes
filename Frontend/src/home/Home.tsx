@@ -29,27 +29,9 @@ const Home = () => {
             onPinNotes={() => {}}
           />
 
-          <NotesCard
-            title="JavaScript"
-            date="27 Sep 2026"
-            content="Learn JavaScript fundamentals."
-            tag="#JavaScript"
-            isPinned={true}
-            onEdit={() => {}}
-            onDelete={() => {}}
-            onPinNotes={() => {}}
-          />
+          
 
-          <NotesCard
-            title="Tailwind CSS"
-            date="27 Sep 2026"
-            content="Learn Tailwind CSS utility classes."
-            tag="#Tailwind"
-            isPinned={false}
-            onEdit={() => {}}
-            onDelete={() => {}}
-            onPinNotes={() => {}}
-          />
+          
         </div>
       </div>
 
@@ -83,7 +65,7 @@ const Home = () => {
         }}
         className="mx-4 mt-16 max-h-[85vh] overflow-y-auto rounded-2xl bg-white p-6 shadow-2xl outline-none md:mx-auto md:w-[40%] md:p-7"
       >
-        <AddEditNotes type={openAddEditModal.type}  onClose={()=>{
+        <AddEditNotes type={openAddEditModal.type} noteData={openAddEditModal.data}  onClose={()=>{
           setOpenAddEditModal({isShown:false,type:"add",data:null})
         }}  />
       </Modal>

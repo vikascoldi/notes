@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import Taginput from "../components/input/Taginput";
 import { MdClose } from "react-icons/md";
 
-const AddEditNotes = ({ type = "add", onClose }) => {
+const AddEditNotes = ({ type = "add", onClose,noteData }) => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [tags, setTags] = useState([]);
 
-  const [error, setError] = useState("");
+  const [error, setError] = useState(null);
 
   const addNewNote = async () => {};
 
