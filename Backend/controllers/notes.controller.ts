@@ -1,6 +1,5 @@
 import type { Request, Response } from "express";
 import note from "../model/note.model.js";
-import { error } from "node:console";
 
 export const addNotes = async (req: Request, res: Response): Promise<void> => {
   try {
@@ -198,7 +197,7 @@ export const editNotes = async (req: Request, res: Response): Promise<void> => {
       message: "Note updated successfully",
       notes,
     });
-  } catch (error) {
+  }catch (error) {
     res.status(500).json({
       success: false,
       message: "Internal server error",
@@ -206,22 +205,40 @@ export const editNotes = async (req: Request, res: Response): Promise<void> => {
     });
   }
 };
-
-export const updateIsPinned = async (req: Request, res: Response): Promise <void> => {
+ 
+// edit pinned or update 
+export const updateIsPinned = async (
+  req: Request,
+  res: Response,
+): Promise<void> => {
   try {
     const noteId = req.params.noteId;
     const { isPinned } = req.body;
 
-    const { user } = req.user;
+    const user = req.user;
+
+    if (!user?._id) {
+      res.status(401).json({ success: false, message: "Unauthorized" });
+      return;
+    }
 
     const notes = await note.findOne({ _id: noteId, userId: user._id });
     if (!notes) {
       res.status(404).json({
         message: "Note not found",
       });
+      return;
     }
 
     if (isPinned !== undefined) notes.isPinned = isPinned;
+
+  if (typeof isPinned !== "boolean") {
+  res.status(400).json({
+    success: false,
+    message: "isPinned must be a boolean",
+  });
+  return;
+}
 
     await notes.save();
 
