@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import Navbar from "../components/navbar/Navbar";
+
 import PasswordInput from "../components/input/PasswordInput";
 import { validateEmail } from "../utils/helper";
 import { Link, useNavigate } from "react-router-dom";
@@ -168,7 +168,7 @@ const Signup = () => {
         }
       `}</style>
 
-      <Navbar />
+      
 
       <div
         className="flex min-h-[calc(100vh-5rem)] items-center justify-center px-4 py-8"

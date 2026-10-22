@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import PasswordInput from "../components/input/PasswordInput";
 import { validateEmail } from "../utils/helper";
-import Navbar from "../components/navbar/Navbar";
+
 import logo from ".././assets/notes-logo-cool.svg";
 import { FcGoogle } from "react-icons/fc";
 
@@ -28,7 +28,7 @@ const Login = () => {
   };
   return (
     <>
-      <Navbar />
+      
 
       <div
         className="flex min-h-[calc(100vh-5rem)] items-center justify-center px-4 py-8"
