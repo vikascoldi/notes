@@ -55,7 +55,7 @@ const Taginput = ({ tags, setTags }) => {
           id="note-tags"
           type="text"
           placeholder="Add tags"
-          className="input-box !mb-0 flex-1 !py-2.5 text-sm"
+          className="input-box mb-0! flex-1 py-2.5! text-sm"
           value={inputValue}
           onChange={handleChangeInput}
           onKeyDown={handleKeyDown}

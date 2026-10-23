@@ -3,6 +3,8 @@ import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import Home from "./home/Home";
 import Login from "./auth/Login";
 import Signup from "./auth/Signup";
+import SplashScreen from "./components/splash/SplashScreen";
+
 
 const App = () => {
   const routes = (
@@ -14,7 +16,12 @@ const App = () => {
       </Routes>
     </Router>
   );
-  return <div>{routes}</div>;
+  return (
+    <div>
+      <SplashScreen />
+      {routes}
+    </div>
+  );
 };
 
 export default App;

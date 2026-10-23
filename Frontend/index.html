@@ -5,9 +5,30 @@
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>frontend</title>
+
+    <!-- Dark placeholder shown while the JavaScript downloads, so there is no
+         white flash before the splash screen. React replaces it automatically
+         as soon as the app starts. -->
+    <style>
+      #boot-shell {
+        position: fixed;
+        inset: 0;
+        background: #05060f;
+      }
+    </style>
+    <noscript><style>#boot-shell { display: none; }</style></noscript>
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root"><div id="boot-shell"></div></div>
     <script type="module" src="/src/main.jsx"></script>
+
+    <!-- Failsafe: if the app never starts (for example the script failed to
+         download), remove the dark placeholder after 8 seconds. -->
+    <script>
+      setTimeout(function () {
+        var shell = document.getElementById("boot-shell");
+        if (shell) shell.remove();
+      }, 8000);
+    </script>
   </body>
 </html>

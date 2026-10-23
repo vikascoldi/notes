@@ -5,9 +5,11 @@ import { validateEmail } from "../utils/helper";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../assets/notes-logo-cool.svg";
 import { FcGoogle } from "react-icons/fc";
-import axiosInstance from "./../axiosInstance";
-import { API_PATHS } from "./../api";
+
+
 import axios from "axios";
+import axiosInstance from "../utils/axiosInstance";
+import { API_PATHS } from "../utils/api";
 
 const MIN_PASSWORD_LENGTH = 6;
 const REDIRECT_DELAY_MS = 1200;
