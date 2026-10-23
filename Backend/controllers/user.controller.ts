@@ -149,7 +149,7 @@ export const loginUser = async (req: Request, res: Response): Promise<void> => {
   }
 };
 
-
+// get user by id 
 export const getByIdUser = async (req:Request,res:Response) =>{
   try {
     const userId = req.params.id; 
