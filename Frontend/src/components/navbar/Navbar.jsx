@@ -4,7 +4,7 @@ import logo from "../../assets/notes-logo-cool.svg";
 import Profileinfo from "../UserProfileInfo/Profileinfo";
 import SearchBar from "../saerchBar/SearchBar";
 
-const Navbar = () => {
+const Navbar = ({userInfo}) => {
   const [searchQuery, setSearchQueary] = useState(""); // searcbar value
   const onChange = (e) => {
     // search bar logic
@@ -19,6 +19,7 @@ const Navbar = () => {
 
   const navigate = useNavigate();
   const onLogout = () => {
+    localStorage.clear();
     navigate("/");
   };
 
@@ -43,7 +44,7 @@ const Navbar = () => {
         />
       </div>
 
-      <Profileinfo onLogout={onLogout} />
+      <Profileinfo  userInfo={userInfo} onLogout={onLogout} />
     </nav>
   );
 };

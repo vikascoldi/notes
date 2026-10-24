@@ -1,12 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "../components/navbar/Navbar";
 import NotesCard from "../components/card/NotesCard";
 import { MdAdd } from "react-icons/md";
 import AddEditNotes from "./AddEditNotes";
 import Modal from "react-modal";
 import { useNavigate } from "react-router-dom";
-import axiosInstance from "../utils/axiosInstance";
-
 
 const Home = () => {
   const [openAddEditModal, setOpenAddEditModal] = useState({
@@ -14,23 +12,41 @@ const Home = () => {
     type: "add",
     data: null,
   });
-  const [userInfo,setUserInfo] = useState(null);
+
+  const [userInfo, setUserInfo] = useState(() => {
+    try {
+      const savedUser = localStorage.getItem("user");
+      return savedUser ? JSON.parse(savedUser) : null;
+    } catch (error) {
+      console.error("Error reading user information:", error);
+      return null;
+    }
+  });
+
   const navigate = useNavigate();
 
-  const getUser = async () =>{
-    try {
-      const response = await axiosInstance.get()
-    } catch (error) {
-      
+  useEffect(() => {
+    const savedUser = localStorage.getItem("user");
+    const token = localStorage.getItem("accessToken");
+
+    if (!token || !savedUser) {
+      navigate("/login", { replace: true });
+      return;
     }
 
-
-  }
+    try {
+      setUserInfo(JSON.parse(savedUser));
+    } catch (error) {
+      console.error("Invalid user information:", error);
+      localStorage.removeItem("user");
+      navigate("/login", { replace: true });
+    }
+  }, [navigate]);
 
   return (
     <>
-      <Navbar />
-
+      {" "}
+      <Navbar userInfo={userInfo} />
       <div className="container mx-auto px-4 pb-28 pt-2 md:px-6">
         <div className="grid grid-cols-1 md:grid-cols-2 md:gap-x-5 lg:grid-cols-3">
           <NotesCard
@@ -43,24 +59,22 @@ const Home = () => {
             onDelete={() => {}}
             onPinNotes={() => {}}
           />
-
-          
-
-          
         </div>
       </div>
-
       <button
         type="button"
         aria-label="Add note"
         className="fixed bottom-6 right-6 z-40 flex h-14 w-14 cursor-pointer items-center justify-center rounded-2xl bg-blue-500 text-white shadow-lg shadow-blue-500/30 hover:bg-blue-600 hover:shadow-xl active:scale-95 md:bottom-10 md:right-10 md:h-16 md:w-16"
         onClick={() => {
-          setOpenAddEditModal({ isShown: true, type: "add", data: null });
+          setOpenAddEditModal({
+            isShown: true,
+            type: "add",
+            data: null,
+          });
         }}
       >
         <MdAdd className="text-3xl" />
       </button>
-
       <Modal
         isOpen={openAddEditModal.isShown}
         onRequestClose={() => {
@@ -80,9 +94,17 @@ const Home = () => {
         }}
         className="mx-4 mt-16 max-h-[85vh] overflow-y-auto rounded-2xl bg-white p-6 shadow-2xl outline-none md:mx-auto md:w-[40%] md:p-7"
       >
-        <AddEditNotes type={openAddEditModal.type} noteData={openAddEditModal.data}  onClose={()=>{
-          setOpenAddEditModal({isShown:false,type:"add",data:null})
-        }}  />
+        <AddEditNotes
+          type={openAddEditModal.type}
+          noteData={openAddEditModal.data}
+          onClose={() => {
+            setOpenAddEditModal({
+              isShown: false,
+              type: "add",
+              data: null,
+            });
+          }}
+        />
       </Modal>
     </>
   );
